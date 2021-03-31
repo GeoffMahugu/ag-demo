@@ -1,11 +1,16 @@
 ### Docker Setup
 
-The docker image contains postgres instance with these credentials:
+The docker image contains postgres instance with these credentials(Found on .env file):
 
 ```
-- POSTGRES_DB=postgres
-- POSTGRES_USER=postgres
-- POSTGRES_PASSWORD=postgres
+
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5001
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+
+
 ```
 
 After bringing up the docker container:

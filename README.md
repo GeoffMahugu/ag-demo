@@ -2,10 +2,17 @@
 
 This document contains details of the project setup.
 
-
 ### Project Layout
 
-[config](./config)  - Contains fonfiguration for the database
+[config](./config)  - Contains configuration for the database
+
+[data](./data)  - Contains database file (not in repo; will auto generate)
+
+[graphql](./graphql)  - Contains graphl mutations and schema
+
+[migrations](./migrations)  - Contains Sequelizer migrations for DB
+
+[models](./models)  - Contains Sequelizer model schema for DB
 
 
 
@@ -20,7 +27,7 @@ To run the docker container:
 
 ``docker-compose -f "docker-compose.yml" up -d --build``
 
-The docker creadentials are:
+The docker creadentials are(Found on .env file):
 
 
 #### Database Setup
@@ -45,14 +52,15 @@ BET - ``sequelize model:generate --name bet --attributes betAmount:float,chance:
 **To create a User:**
 
 ```
+
 mutation {
-    createUser(userInput: { name: "TestUser"}){
-        id,
-        name,
-        balance,
-        updatedAt,
-        createdAt,
-    }
+  createUser(userInput: { name: "TestUser"}){
+	id,
+    name,
+    balance,
+    updatedAt,
+    createdAt,
+  }
 },
 ```
 
@@ -61,13 +69,13 @@ mutation {
 
 ```
 {
-    getUser(id:"09a685c1-6199-4f85-94e6-8628afa37d75"){
-        id,
-        name,
-        balance,
-        updated_at,
-        created_at,
-    }
+  getUser(id:"09a685c1-6199-4f85-94e6-8628afa37d75"){
+    id,
+    name,
+    balance,
+    updatedAt,
+    createdAt,
+  }
 }
 
 ```
@@ -76,7 +84,7 @@ mutation {
 
 ```
 {
-    getUserList {users{id,name,balance,created_at,updated_at}}
+    getUserList {users{id,name,balance,createdAt,updatedAt}}
 }
 ```
 
@@ -86,14 +94,14 @@ mutation {
 
 ```
 mutation {
-    deleteUser(id:"9cc37f1c-6409-4a70-848f-34d5eecde4bb"){
-        id,
-        name,
-        balance,
-        updated_at,
-        created_at,
-    }
-}
+  deleteUser(id:"6391b918-2e98-4f4e-9224-8f302c6e4214"){
+      id,
+      name,
+      balance,
+      updatedAt,
+      createdAt,
+  }
+ }
 
 ```
 
