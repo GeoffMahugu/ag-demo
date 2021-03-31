@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     chance: DataTypes.FLOAT,
     payout: DataTypes.FLOAT,
     win: DataTypes.BOOLEAN,
-    created: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-    updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   }, {
     sequelize,
     modelName: 'bet',

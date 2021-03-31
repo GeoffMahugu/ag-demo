@@ -1,6 +1,6 @@
-const User = require('../models/user');
+const user = require('../models/user');
+const db = require('../models/index');
 // const User = require('../models/user').default;
-// import User from '../models/user';
 // const bet = require('./models/bet');
 
 module.exports = {
@@ -22,43 +22,44 @@ module.exports = {
        }
      */
     createUser: async function ({ userInput }) {
-        // const user = new User({
-        //   name: userInput.name,
-        //   balance:userInput.balance
-        // });
-        // const createdUser= await user.save();
-        // return createdUser;
-        console.log(User);
-        return Hello;
+        const newUser =  db.user.build({
+          name: userInput.name,
+          balance:userInput.balance
+        });
 
-
+        const createdUser= await newUser.save();
+        
         // return {
         //   ...createdUser._doc,
         //   _id: createdUser._id.toString(),
         // };
+        return createdUser;
     },
 
     /**
-     * READ: QUERY PRODUCT - 
-     * @returns Product 
-     * { name, description, price, discount, created_at, updated_at}
+     * READ: QUERY USERS - 
+     * @returns USER 
+     * { name, balance, created_at, updated_at}
      * @query
      * 
        {
-        products{products{_id, description, price, discount,created_at,updated_at}}
+        users{users{_id, balance,created_at,updated_at}}
        }
      */
-        // products: async function() {
-        //     const products = await Product.find();
-        //     return {
-        //         products: products.map((q)=>{
-        //             return {
-        //                 ...q._doc,
-        //                 _id: q._id.toString(),
-        //             };
-        //         })
-        //     };
-        // },
+      getUserList: async function() {
+
+          const users = await db.user.findAll();
+          // return {
+          //     users: users.map((q)=>{
+          //         // return {
+          //         //     ...q._doc,
+          //         //     _id: q._id.toString(),
+          //         // };
+          //         return q;
+          //     })
+          // };
+          return {users:users};
+      },
 
     /**
      * UPDATE PRODUCT - 

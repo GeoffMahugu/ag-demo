@@ -4,6 +4,7 @@ const bet = require('./bet');
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -13,17 +14,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      user.hasMany(models.bets);
     }
   };
   user.init({
     name: DataTypes.STRING,
     balance: DataTypes.FLOAT,
-    created: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-    updated: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   }, {
     sequelize,
     modelName: 'user',
   });
   return user;
 };
+
