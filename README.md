@@ -5,7 +5,7 @@ This document contains details of the project setup.
 
 ### Project Layout
 
-(config)[./config]  - Contains fonfiguration for the database
+[config](./config)  - Contains fonfiguration for the database
 
 
 
@@ -22,3 +22,21 @@ To run the docker container:
 
 The docker creadentials are:
 
+
+
+
+#### Database Setup
+
+To create the db:
+
+``sequelize db:create``
+
+To make migrations:
+
+``sequelize db:migrate``
+
+To generate the tables:
+
+USERS  - ``sequelize model:generate --name user --attributes name:string,balance:float``
+
+BET - ``sequelize model:generate --name bet --attributes betAmount:float,chance:float,payout:float,win:boolean``
