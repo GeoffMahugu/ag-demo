@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   user.init({
-    id:  {
+    id: {
       type: DataTypes.STRING,
       primaryKey: true,
       autoIncrement: false // Automatically gets converted to SERIAL for postgres
     },
     name: DataTypes.STRING,
-    balance:{ type: DataTypes.FLOAT, defaultValue: 0.0 },
+    balance: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
     createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
   }, {

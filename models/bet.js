@@ -23,12 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id', // key in Target model that we're referencing
       }
     },
-    betAmount: DataTypes.FLOAT,
-    chance: DataTypes.FLOAT,
-    payout: DataTypes.FLOAT,
-    win: DataTypes.BOOLEAN,
+    betAmount: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
+    chance: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
+    payout: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
+    win: { type: DataTypes.BOOLEAN, defaultValue: false },
     created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+
   }, {
     sequelize,
     modelName: 'bet',

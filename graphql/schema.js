@@ -18,7 +18,7 @@ module.exports = buildSchema(`
     }
     type Bet {
         id:ID!
-        userId: User!,
+        userId: String!,
         betAmount: Float!
         chance: Float!
         payout: Float!
@@ -36,6 +36,7 @@ module.exports = buildSchema(`
     }
     type RootQuery {
         getUserList: UserData!
+        getUser(id: ID!): User!
         getBetList: BetData!
     }
     type RootMutation {
