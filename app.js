@@ -12,9 +12,6 @@ const db_config = {
 };
 
 const db = pgp(db_config);
-// const db = pgp('postgres://postgres:password@127.0.01:5001/postgres');
-
-
 const cors = require('cors');
 const port = 3000;
 
@@ -23,18 +20,9 @@ const { graphqlHTTP } = require('express-graphql');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolver = require('./graphql/resolvers');
 
-// const config = require('./config/config.json');
-
-
-//  EXPRESS::INITIALIZE APP -/
-
 const app = express();
 
-// # ADD MIDDLEWARE -/
-
 app.use(cors());
-
-// # GRAPHQL::API SERVICE -/
 
 app.use(
   '/graphql',
@@ -44,13 +32,6 @@ app.use(
     graphiql: true,
   })
 );
-
-// db.one('select * from users')
-//     .then(res => {
-//         console.log('DB RESPONSE');
-//         console.log(res);
-//     });
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

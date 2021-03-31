@@ -3,21 +3,21 @@ const { buildSchema } = require('graphql');
 
 module.exports = buildSchema(`
     type User {
-        _id:ID!
+        id:ID!
         name: String!
         balance: Float!
-        created_at: String!
-        updated_at: String!
+        bet: [Bet!],
+        createdAt: String!
+        updatedAt: String!
     }    
     type UserData {
         users: [User!]!
     }
     input UserInputData {
         name: String!,
-        balance: Float!
     }
     type Bet {
-        _id:ID!
+        id:ID!
         userId: User!,
         betAmount: Float!
         chance: Float!

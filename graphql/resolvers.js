@@ -1,5 +1,7 @@
-const user = require('../models/user');
+// const user = require('../models/user');
+const { v4: uuidv4 } = require('uuid');
 const db = require('../models/index');
+// const user = require('../models/user');
 // const User = require('../models/user').default;
 // const bet = require('./models/bet');
 
@@ -11,29 +13,27 @@ module.exports = {
      * @returns User
      * 
      * @mutation 
-     * mutation {
-        createUser(userInput: { name: "TestUser",balance: 0.50}){
-            _id,
+      mutation {
+        createUser(userInput: { name: "TestUser"}){
+            id,
             name,
             balance,
-            created_at,
-            updated_at
+            updatedAt,
+            createdAt,
         }
-       }
+      },
      */
     createUser: async function ({ userInput }) {
         const newUser =  db.user.build({
+          id: uuidv4(),
           name: userInput.name,
-          balance:userInput.balance
         });
 
         const createdUser= await newUser.save();
-        
-        // return {
-        //   ...createdUser._doc,
-        //   _id: createdUser._id.toString(),
-        // };
-        return createdUser;
+      
+        return {
+          ...createdUser.dataValues,
+        };
     },
 
     /**
@@ -48,17 +48,9 @@ module.exports = {
      */
       getUserList: async function() {
 
+          // const users = await db.user.findAll({attributes: ['name', 'balance']});
           const users = await db.user.findAll();
-          // return {
-          //     users: users.map((q)=>{
-          //         // return {
-          //         //     ...q._doc,
-          //         //     _id: q._id.toString(),
-          //         // };
-          //         return q;
-          //     })
-          // };
-          return {users:users};
+          return {users: users};
       },
 
     /**
