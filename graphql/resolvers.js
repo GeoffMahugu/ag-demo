@@ -89,32 +89,29 @@ module.exports = {
     //   },
 
     /**
-     * DELETE PRODUCT - 
+     * DELETE USERS - 
      * @param {id} ID
-     * @returns Product
+     * @returns User
      * 
      * @mutation 
      * mutation {
-        deleteProduct(id:"605497bce3ad5c614f21c292"){
-            _id,
+        deleteUser(id:"9cc37f1c-6409-4a70-848f-34d5eecde4bb"){
+            id,
             name,
-            description,
-            price,
-            discount,
-            created_at,
-            updated_at
+            balance,
+            updatedAt,
+            createdAt,
         }
        }
      */
-    // deleteProduct: async function ({ id, productInput }) {
-    //     const product = await Product.findById(id);
-    //     if (!product) {
-    //       throw new Error('Product Not found!');
-    //     }
-    //     await Product.findByIdAndRemove(id);
-    //     return {
-    //       ...product._doc,
-    //       _id: product._id.toString(),
-    //     };
-    //   },
+    deleteUser: async function ({ id, userInput }) {
+        const user = await db.user.findOne({where: {id: id}});
+        if (!user) {
+          throw new Error('User Not found!');
+        }
+        await user.destroy();
+        return {
+          ...user.dataValues,
+          };      
+        },
 };

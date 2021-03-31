@@ -40,6 +40,7 @@ module.exports = buildSchema(`
     }
     type RootMutation {
         createUser(userInput:UserInputData): User!
+        deleteUser(id: ID!,userInput:UserInputData): User!
         createBet(betInput:BetInputData): Bet!
     }
     schema {
