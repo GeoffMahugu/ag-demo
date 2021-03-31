@@ -75,7 +75,7 @@ module.exports = {
       throw new Error('User Not found!');
     }
 
-    if (betInput.chance <= 0) throw new Error('Invalid Bet chance!');
+    if (betInput.chance <= 0 || betInput.chance > 10) throw new Error('Invalid Bet chance!');
     let newBet = null;
     if (betInput.chance >= 5) {
       // We will conside > 5 chance as a win with fixed payout of 1200
@@ -126,8 +126,12 @@ module.exports = {
     if (!user) {
       throw new Error('User Not found!');
     }
+
     // For best bets will only check where user won.
     const filteredBets = await db.bet.findAll({ where: { userId: id, win: true } });
+    console.log('----------------')
+    console.log(filteredBets);
+    return { bets: filteredBets };
   },
 
 

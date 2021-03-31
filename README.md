@@ -29,6 +29,7 @@ To run the docker container:
 
 The docker creadentials are(Found on .env file):
 
+To read on [Docker Setup](./README_DOCKER.md)
 
 #### Database Setup
 
