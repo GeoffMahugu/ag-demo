@@ -1,5 +1,6 @@
 'use strict';
-import bet from './bet';
+const bet = require('./bet');
+
 const {
   Model
 } = require('sequelize');
@@ -12,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      user.hasMany(models.bets);
     }
   };
   user.init({
@@ -23,6 +25,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
-  user.hasMany(bet);
   return user;
 };

@@ -18,6 +18,6 @@ It will be served on localhost ``http://localhost:5001`` (You can update the por
 
 To access the postgress db run: and enter the password
 
-``psql -h 192.168.8.107 -U postgres -p 5001``
+``psql -h 127.0.0.1 -U postgres -p 5001``
 
 Once logged in to the database you can list the database tables with ``\dt``

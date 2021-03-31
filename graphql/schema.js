@@ -6,7 +6,6 @@ module.exports = buildSchema(`
         _id:ID!
         name: String!
         balance: Float!
-        bets: [Bet!],
         created_at: String!
         updated_at: String!
     }    
@@ -14,7 +13,7 @@ module.exports = buildSchema(`
         users: [User!]!
     }
     input UserInputData {
-        name: String!
+        name: String!,
         balance: Float!
     }
     type Bet {
