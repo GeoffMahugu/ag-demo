@@ -23,8 +23,8 @@ module.exports = buildSchema(`
         chance: Float!
         payout: Float!
         win: Boolean!
-        created_at: String!
-        updated_at: String!
+        createdAt: String!
+        updatedAt: String!
     }    
     type BetData {
         bets: [Bet!]!
@@ -38,6 +38,7 @@ module.exports = buildSchema(`
         getUserList: UserData!
         getUser(id: ID!): User!
         getBetList: BetData!
+        getBestBetPerUser(id: ID!):BetData!
     }
     type RootMutation {
         createUser(userInput:UserInputData): User!

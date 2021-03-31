@@ -41,8 +41,8 @@ module.exports = {
           id,
           name,
           balance,
-          updatedAt,
-          createdAt,
+          updated_at,
+          created_at,
         }
       }
    */
@@ -61,7 +61,9 @@ module.exports = {
    * READ: QUERY USERS - 
    * @returns USER 
    * @query
-   * {users{users{_id, balance,created_at,updated_at}}}
+   * {
+      getUserList {users{id,name,balance,created_at,updated_at}}
+    }
    */
   getUserList: async function () {
 
@@ -70,39 +72,6 @@ module.exports = {
     return { users: users };
   },
 
-  /**
-   * UPDATE PRODUCT - 
-   * @param {id}, { name, description, price, discount} ID,ProductInput
-   * @returns Product
-   * @mutation 
-   * mutation {
-      updateProduct(id:"605497bce3ad5c614f21c292",productInput: { name: "Test Product 2",description: "Test Product",price: 7500.50,discount: 8}){
-          _id,
-          name,
-          description,
-          price,
-          discount,
-          created_at,
-          updated_at
-      }
-      }
-   */
-  // updateProduct: async function ({ id, productInput }) {
-  //     const product = await Product.findById(id);
-  //     if (!product) {
-  //       throw new Error('Product Not found!');
-  //     }
-  //     product.name = productInput.name;
-  //     product.description = productInput.description;
-  //     product.price = productInput.price;
-  //     product.discount = productInput.discount;
-
-  //     const updatedProduct = await product.save();
-  //     return {
-  //       ...updatedProduct._doc,
-  //       _id: updatedProduct._id.toString(),
-  //     };
-  //   },
 
   /**
    * DELETE USERS - 
@@ -114,8 +83,8 @@ module.exports = {
           id,
           name,
           balance,
-          updatedAt,
-          createdAt,
+          updated_at,
+          created_at,
       }
      }
    */
@@ -135,33 +104,32 @@ module.exports = {
   * @param { BetInputData }
   * @returns Bet
   * @mutation 
-   mutation {
-     createBet(userInput: { name: "TestUser"}){
-         id,
-         name,
-         balance,
-         updatedAt,
-         createdAt,
-     }
-   },
+    mutation {
+      createBet(betInput: {userId: "c9edbe82-71e7-4ea2-b9e1-55255e03a3eb", betAmount: 400, chance: 7.1}){
+        id,
+        userId,
+        betAmount,
+        chance,
+        payout,
+        win,
+        createdAt,
+        updatedAt
+      }
+    }
   */
   createBet: async function ({ betInput }) {
-    console.log(betInput);
-
     const user = await db.user.findOne({ where: { id: betInput.userId } });
     if (!user) {
       throw new Error('User Not found!');
     }
-    console.log('------------------------');
-    console.log(user);
-    console.log('------------------------');
 
     if (betInput.chance <= 0) throw new Error('Invalid Bet chance!');
     let newBet = null;
     if (betInput.chance >= 5) {
-      // We will conside >5 chance as a win with fixed payout of 1200
+      // We will conside > 5 chance as a win with fixed payout of 1200
       newBet = db.bet.build({
-        userId: user,
+        id: uuidv4(),
+        userId: user.dataValues.id,
         betAmount: (0.0).toFixed(1),
         chance: betInput.chance,
         payout: 1200,
@@ -169,42 +137,43 @@ module.exports = {
       });
     } else {
       newBet = db.bet.build({
-        userId: user,
+        id: uuidv4(),
+        userId: user.dataValues.id,
         betAmount: betInput.betAmount,
         chance: betInput.chance,
         payout: (0.0).toFixed(1),
         win: false,
       });
     }
-
-    // const dummyBet = {
-    //   id: "1212",
-    //   userId: user.id,
-    //   betAmount: betInput.betAmount,
-    //   chance: betInput.chance,
-    //   payout: 1000,
-    //   win: true,
-    //   created_at: "asdasdasd",
-    //   updated_at: "asdasdasdas"
-    // };
-
-    // return dummyBet;
-
     const createdBet = await newBet.save();
 
     return {
       ...createdBet.dataValues,
     };
-
-    // const newUser = db.user.build({
-    //   id: uuidv4(),
-    //   name: userInput.name,
-    // });
-
-    // const createdUser = await newUser.save();
-
-    // return {
-    //   ...createdUser.dataValues,
-    // };
   },
+
+  /**
+  * READ: QUERY All BETS - 
+  * @returns Bets 
+  * @query
+  * {
+      getBestBetPerUser(id: "c9edbe82-71e7-4ea2-b9e1-55255e03a3eb"){bets{id, userId,betAmount, chance,payout,win,createdAt,updatedAt}}
+    }
+  * */
+  getBetList: async function () {
+    const bets = await db.bet.findAll();
+    return { bets: bets };
+  },
+
+  getBestBetPerUser: async function ({ id }) {
+    const user = await db.user.findOne({ where: { id: id } });
+    if (!user) {
+      throw new Error('User Not found!');
+    }
+
+    // For best bets will only check where user won.
+    const filteredBets = await db.bet.findAll({ where: { userId: id, win: true } });
+  },
+
+
 };

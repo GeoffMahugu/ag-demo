@@ -15,8 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   bet.init({
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: false
+    },
     userId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       references: {
         model: 'user', // name of Target model
@@ -27,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     chance: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
     payout: { type: DataTypes.FLOAT, defaultValue: (0.0).toFixed(1) },
     win: { type: DataTypes.BOOLEAN, defaultValue: false },
-    created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-    updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 
   }, {
     sequelize,
