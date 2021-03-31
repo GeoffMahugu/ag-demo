@@ -2,6 +2,9 @@
 
 This document contains details of the project setup.
 
+![Screenshot from 2021-04-01 00-13-51](https://user-images.githubusercontent.com/17265995/113213199-80d76100-9280-11eb-8390-792c758f3835.jpg)
+
+
 ### Project Layout
 
 [config](./config)  - Contains configuration for the database
@@ -146,6 +149,5 @@ mutation {
     bets{id, userId,betAmount, chance,payout,win,createdAt,updatedAt}
 	}
 }
-
 
 ```
