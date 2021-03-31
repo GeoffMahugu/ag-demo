@@ -121,17 +121,30 @@ module.exports = {
   *
    */
 
-  getBestBetPerUser: async function ({ id }) {
+  getBestBetPerUser: async function ({ id, limit }) {
     const user = await db.user.findOne({ where: { id: id } });
     if (!user) {
       throw new Error('User Not found!');
     }
 
     // For best bets will only check where user won.
-    const filteredBets = await db.bet.findAll({ where: { userId: id, win: true } });
-    console.log('----------------')
-    console.log(filteredBets);
-    return { bets: filteredBets };
+    const filteredBets = await db.bet.findAndCountAll({
+      where: {
+        userId: id, win: true
+      },
+      limit: limit || 5,
+      offset: 0,
+    });
+
+    const dataToSend = {
+      first: limit || 5,
+      count: filteredBets.count,
+      bets: filteredBets.rows.map((q) => {
+        return q;
+      })
+    };
+
+    return dataToSend;
   },
 
 

@@ -34,11 +34,16 @@ module.exports = buildSchema(`
         betAmount: Float!
         chance: Float!
     }
+    type UserBestBets {
+        first: Int!
+        count: Int!
+        bets: [Bet!]!
+    }
     type RootQuery {
         getUserList: UserData!
         getUser(id: ID!): User!
         getBetList: BetData!
-        getBestBetPerUser(id: ID!):BetData!
+        getBestBetPerUser(id: ID!,limit: Int):UserBestBets!
     }
     type RootMutation {
         createUser(userInput:UserInputData): User!

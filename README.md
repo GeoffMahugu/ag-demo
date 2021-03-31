@@ -140,7 +140,12 @@ mutation {
 
 ```
 {
-  getBestBetPerUser(id: "c9edbe82-71e7-4ea2-b9e1-55255e03a3eb"){bets{id, userId,betAmount, chance,payout,win,createdAt,updatedAt}}
+	getBestBetPerUser(id: "c9edbe82-71e7-4ea2-b9e1-55255e03a3eb",limit:10){
+    first,
+  	count,
+    bets{id, userId,betAmount, chance,payout,win,createdAt,updatedAt}
+	}
 }
+
 
 ```
